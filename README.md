@@ -8,10 +8,16 @@ List is a data structure where each node is connected to 'next' one, from the fi
 
 ![visualization](list.png)
  
-## How to compile it
+## How to use it
+
+Compile:
 
 ```bash
 	make
+```
+Run:
+
+```bash
 	./TerminalSnake
 ```
 
