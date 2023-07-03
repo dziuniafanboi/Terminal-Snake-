@@ -6,7 +6,7 @@ C snake game realized on list
 
 List is a data structure where each node is connected to 'next' one, from the first to the last.
 
-(visualization)[list.png]
+[visualization](list.png)
  
 ## TO-DO
 
