@@ -8,6 +8,13 @@ List is a data structure where each node is connected to 'next' one, from the fi
 
 ![visualization](list.png)
  
+## How to compile it
+
+```bash
+	make
+	./TerminalSnake
+```
+
 ## TO-DO
 
 1. list data structure
