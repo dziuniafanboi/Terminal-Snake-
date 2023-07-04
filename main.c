@@ -1,12 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-struct snake_node
-{
-    int value;
-    char body_part;
-    struct snake_node* next;
-};
+#include "libs/test.h"
+#include "libs/snake.h"
 
 void move(struct snake_node** head)
 {
@@ -50,19 +45,23 @@ void add(struct snake_node** head, int value)
     }
 }
 
-
 int main(void)
 {
-    struct snake_node* first = NULL;
+    struct snake_node* head = NULL;
 
     // Dodawanie 5 elementów do struktury
-    add(&first, 10);
-    add(&first, 20);
-    add(&first, 30);
-    add(&first, 40);
-    add(&first, 50);
+    add(&head, 10);
+    add(&head, 20);
+    add(&head, 30);
+    add(&head, 40);
+    add(&head, 50);
 
-    move(&first);
+    moving_test(head);
+
+    move(&head);
+
+    moving_test(head);
+
 
     return 0;
 }
