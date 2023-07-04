@@ -4,11 +4,8 @@
 #include "libs/snake.h"
 #include <stdbool.h>
 
-void move(struct snake_node** head)
+void move(struct snake_node** head, char direction)
 {
-    char direction;
-    scanf("%c", &direction);
-
     if (direction == 'd')
     {
         horizontal_movement(*head, 1);
@@ -80,9 +77,11 @@ int main(void)
     add(&head, 50, 50);
 
     moving_test(head);
+    char direction;
 
-    while(true){
-    move(&head);
+    while((direction = getchar()) != 'q')
+    {   
+    move(&head, direction);
 
     moving_test(head);
     }

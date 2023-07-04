@@ -23,7 +23,7 @@ Run:
 
 ## TO-DO
 
-1. list data structure
+~1. list data structure~
 2. moving function of fixed struct
 3. walls
 4. collision with walls
