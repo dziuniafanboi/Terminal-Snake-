@@ -3,7 +3,8 @@
 
 struct snake_node
 {
-    int value;
+    int X;
+    int Y;
     char body_part;
     struct snake_node* next;
 };

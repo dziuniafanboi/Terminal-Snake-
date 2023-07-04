@@ -5,7 +5,7 @@ void moving_test(struct snake_node* head)
 {
         while(head->next != NULL)
         {
-                printf("%d\n", head->value);
+                printf("(%d, %d)\n", head->Y, head->X);
                 head = head->next;
         }
 }
