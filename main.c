@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "libs/test.h"
 #include "libs/snake.h"
+#include "libs/map.h"
 #include <stdbool.h>
 
 void move(struct snake_node** head, char direction)
@@ -68,6 +69,8 @@ void add(struct snake_node** head, int x, int y)
 int main(void)
 {
     struct snake_node* head = NULL;
+
+    initialze_map();
 
     // Dodawanie 5 elementów do struktury
     add(&head, 10, 10);
