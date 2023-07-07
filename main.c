@@ -1,27 +1,34 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
+#include <termios.h>
+#include <unistd.h>
 #include "libs/test.h"
 #include "libs/snake.h"
 #include "libs/map.h"
-#include <stdbool.h>
 
-void move(struct snake_node** head, char direction)
+void move(struct snake_node** head)
 {
-    if (direction == 'd')
+    while(_kbhit())
     {
-        horizontal_movement(*head, 1);
-    }
-    if (direction == 'w')
-    {
-	    vertical_movement(*head, 1);
-    }
-    if (direction == 's')
-    {
-	    vertical_movement(*head, -1);
-    }
-    if (direction == 'a')
-    {
-	    horizontal_movement(*head, -1);
+        switch (getch())
+        {
+        case 'd':
+           horizontal_movement(*head, 1);
+            break;
+        case 'w':
+	        vertical_movement(*head, 1);
+            break;
+        case 's':
+    	    vertical_movement(*head, -1);
+            break;
+        case 'a':
+	        horizontal_movement(*head, -1);
+            break;
+        
+        default:
+            break;
+        }
     }
 }
 
@@ -82,9 +89,9 @@ int main(void)
     moving_test(head);
     char direction;
 
-    while((direction = getchar()) != 'q')
+    while(1)
     {   
-    move(&head, direction);
+    move(&head);
 
     moving_test(head);
     }
