@@ -35,30 +35,41 @@ void disableRawMode()
     tcsetattr(STDIN_FILENO, TCIFLUSH, &orig_termios);
 }
 
-// void move(struct snake_node** head)
-// {
-//     while(_kbhit())
-//     {
-//         switch (getch())
-//         {
-//         case 'd':
-//            horizontal_movement(*head, 1);
-//             break;
-//         case 'w':
-// 	        vertical_movement(*head, 1);
-//             break;
-//         case 's':
-//     	    vertical_movement(*head, -1);
-//             break;
-//         case 'a':
-// 	        horizontal_movement(*head, -1);
-//             break;
-        
-//         default:
-//             break;
-//         }
-//     }
-// }
+void readKey(struct snake_node** head)
+{
+    char c;
+    char seq[3];
+
+    read(STDIN_FILENO, &c, 1);
+
+    if (c == '\x1b') 
+    {
+        read(STDIN_FILENO, &seq[0], 1);
+        read(STDIN_FILENO, &seq[1], 1);
+
+        switch (seq[1])
+        {
+             //up arrow
+    case 'A': 
+        vertical_movement(*head, 1);
+        break;
+    //down arrow
+    case 'B': 
+        vertical_movement(*head, -1);
+        break;
+    //right arrow
+    case 'C': 
+        horizontal_movement(*head, 1);
+        break;
+    //left arrow
+    case 'D': 
+        horizontal_movement(*head, -1);
+        break;
+    default: 
+        break;
+        }
+    }
+}
 
 
 void vertical_movement(struct snake_node* head, int increment)
@@ -117,12 +128,14 @@ int main(void)
     moving_test(head);
     char direction;
 
+    enableRawMode();
     while(1)
     {   
     // move(&head);
-
+    readKey(&head);
     moving_test(head);
     }
+    disableRawMode();
 
     return 0;
 }
