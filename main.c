@@ -42,6 +42,12 @@ void readKey(struct snake_node** head)
 
     read(STDIN_FILENO, &c, 1);
 
+    if (c == 'q')  // if 'q' is pressed
+    {
+        disableRawMode();  // turn off "no buffer" mode
+        exit(0);  // exit the program
+    }
+
     if (c == '\x1b') 
     {
         read(STDIN_FILENO, &seq[0], 1);
@@ -115,6 +121,7 @@ void add(struct snake_node** head, int x, int y)
 int main(void)
 {
     struct snake_node* head = NULL;
+    char c;
 
     initialze_map();
 
