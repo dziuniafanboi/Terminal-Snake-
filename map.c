@@ -1,13 +1,14 @@
 #include <stdio.h>
 #include "libs/map.h"
 
-//map is 24x12
-void initialze_map()
+// map is 24x12
+void initialze_map(char board[20][20])
 {
-    printf("##########################\n");
-    for(int j = 0; j < 12; j++)
+    for (int i = 0; i < 20; i++)
     {
-        printf("#                        #\n");
+        for (int j = 0; j < 20; j++)
+        {
+            board[i][j] = ' ';
+        }
     }
-    printf("##########################\n");    
 }

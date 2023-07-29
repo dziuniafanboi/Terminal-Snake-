@@ -1,6 +1,6 @@
 #ifndef _MAP_H_
 #define _MAP_H_
 
-void initialze_map();
+void initialze_map(char board[20][20]);
 
 #endif

@@ -1,8 +1,8 @@
 CC = gcc
-CFLAGS = -Wall -Wextra
+CFLAGS = -Wall -Wextra -std=c17
 
 # Name of the executable
-TARGET = TerminalSnake
+TARGET = terminal-snake
 
 # Source files
 SRCS = main.c test.c map.c utils.c controls.c

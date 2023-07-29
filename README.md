@@ -13,12 +13,12 @@ List is a data structure where each node is connected to 'next' one, from the fi
 Compile:
 
 ```bash
-	make
+	make clean && make && ./terminal-snake
 ```
 Run:
 
 ```bash
-	./TerminalSnake
+	./terminal-snake
 ```
 
 ## TO-DO

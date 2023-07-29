@@ -11,7 +11,7 @@
 
 void add(struct snake_node **head, int x, int y)
 {
-    struct snake_node *newNode = (struct snake_node *)malloc(sizeof(struct snake_node));
+    snake_node *newNode = (snake_node *)malloc(sizeof(snake_node));
     newNode->X = x;
     newNode->Y = y;
     newNode->next = NULL;
@@ -19,40 +19,82 @@ void add(struct snake_node **head, int x, int y)
     if (*head == NULL)
     {
         *head = newNode;
+        return;
     }
-    else
+
+    snake_node *current = *head;
+    while (current->next != NULL)
     {
-        struct snake_node *current = *head;
-        while (current->next != NULL)
-        {
-            current = current->next;
-        }
-        current->next = newNode;
+        current = current->next;
     }
+    current->next = newNode;
+}
+
+void print_node(snake_node *node, char board[20][20])
+{
+    printf("(%d, %d)\n", node->Y, node->X);
+    if (node->body_part != '\0')
+    {
+        board[node->Y][node->X] = node->body_part;
+        return;
+    }
+    board[node->Y][node->X] = 'X';
+}
+
+void print_board(snake_node *head, char board[20][20])
+{
+    initialze_map(board);
+
+    snake_node *current = head;
+    while (current != NULL)
+    {
+        print_node(current, board);
+        current = current->next;
+    }
+
+    printf("-");
+    for (int i = 0; i < 20; i++)
+    {
+        printf("-");
+    }
+    printf("-\n");
+
+    for (int i = 0; i < 20; i++)
+    {
+        printf("|");
+        for (int j = 0; j < 20; j++)
+        {
+            printf("%c", board[i][j]);
+        }
+        printf("|\n");
+    }
+
+    printf("-");
+    for (int i = 0; i < 20; i++)
+    {
+        printf("-");
+    }
+    printf("-\n");
 }
 
 int main(void)
 {
-    struct snake_node *head = NULL;
-    char c;
+    snake_node *head = NULL;
 
-    initialze_map();
+    char board[20][20];
+
+    initialze_map(board);
 
     // Dodawanie 5 elementów do struktury
     add(&head, 10, 10);
     add(&head, 10, 11);
     add(&head, 10, 12);
-    add(&head, 10, 13);
-    add(&head, 10, 14);
-
-    moving_test(head);
 
     enableRawMode();
     while (1)
     {
-        // move(&head);
         readKey(&head);
-        moving_test(head);
+        print_board(head, board);
     }
     disableRawMode();
 
