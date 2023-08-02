@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <termios.h>
 #include <unistd.h>
+#include <time.h>
 #include "libs/test.h"
 #include "libs/snake.h"
 #include "libs/map.h"
@@ -42,9 +43,12 @@ void print_node(snake_node *node, char board[20][40])
     board[node->Y][node->X] = '$';
 }
 
-void print_board(snake_node *head, char board[20][40])
+void print_board(snake_node *head, Apple *apple, char board[20][40])
 {
+        
     initialze_map(board);
+
+     board[apple->Y][apple->X] = '#';
 
     snake_node *current = head;
     while (current != NULL)
@@ -76,17 +80,21 @@ void print_board(snake_node *head, char board[20][40])
         printf("-");
     }
     printf("-\n");
+
+
 }
 
 int main(void)
 {
-    snake_node *head = NULL;
+    srand(time(NULL));
 
-    char board[20][40];
+    snake_node *head = NULL;
     Apple apple;
 
+    char board[20][40];
+
     initialze_map(board);
-    //spawnApple(&apple, board);
+    spawnApple(&apple, board);
 
     // Dodawanie elementów do struktury
     add(&head, 10, 10);
@@ -97,7 +105,7 @@ int main(void)
     while (1)
     {
         readKey(&head, &apple, board);
-        print_board(head, board);
+        print_board(head, &apple, board);
     }
     disableRawMode();
 

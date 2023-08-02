@@ -22,7 +22,6 @@ void movement(snake_node **head, int increment, direction dir, Apple *apple, cha
         current = current->next;
     }
 
-
     // organiczenie ruchu tak żeby glizda nie uciekła poza plansze
     if (dir == VERTICAL && (current->Y + increment < 0 || current->Y + increment >= 20))
     {
@@ -30,7 +29,7 @@ void movement(snake_node **head, int increment, direction dir, Apple *apple, cha
         disableRawMode();
         exit(0);
     }
-    if (dir == HORIZONTAL && (current->X + increment < 0 || current->X  + increment >= 40))
+    if (dir == HORIZONTAL && (current->X + increment < 0 || current->X + increment >= 40))
     {
         printf("Game Over\n");
         disableRawMode();
@@ -54,18 +53,15 @@ void movement(snake_node **head, int increment, direction dir, Apple *apple, cha
         new_node->X += increment;
     }
 
-     // check if the new position is the same as the apple's position
+    // check if the new position is the same as the apple's position
     if (new_node->X == apple->X && new_node->Y == apple->Y)
     {
-        // the snake has eaten the apple, so spawn a new one
+        // Spawn a new apple.
         spawnApple(apple, board);
     }
     else
     {
-        // if the apple was not eaten, remove the first node (the tail of the snake)
-        snake_node *temp = *head;
-        *head = (*head)->next;
-        free(temp);
+        current->next = new_node;
     }
 
     // dodanie nowego node na koniec
