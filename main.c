@@ -44,7 +44,10 @@ void print_node(snake_node *node, char board[20][40])
 
 void print_board(snake_node *head, char board[20][40])
 {
+    srand(time(NULL));
+    
     initialze_map(board);
+    spawnApple(board);
 
     snake_node *current = head;
     while (current != NULL)

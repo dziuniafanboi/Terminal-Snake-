@@ -62,10 +62,7 @@ void movement(snake_node **head, int increment, direction dir, char board[20][40
     }
     else
     {
-        // if the apple was not eaten, remove the first node (the tail of the snake)
-        snake_node *temp = *head;
-        *head = (*head)->next;
-        free(temp);
+        current->next = new_node;
     }
 
     // dodanie nowego node na koniec
