@@ -11,27 +11,6 @@
 #include "libs/controls.h"
 #include "libs/apple.h"
 
-void add(struct snake_node **head, int x, int y)
-{
-    snake_node *newNode = (snake_node *)malloc(sizeof(snake_node));
-    newNode->X = x;
-    newNode->Y = y;
-    newNode->next = NULL;
-
-    if (*head == NULL)
-    {
-        *head = newNode;
-        return;
-    }
-
-    snake_node *current = *head;
-    while (current->next != NULL)
-    {
-        current = current->next;
-    }
-    current->next = newNode;
-}
-
 void print_node(snake_node *node, char board[20][40])
 {
     printf("(%d, %d)\n", node->Y, node->X);
@@ -98,8 +77,6 @@ int main(void)
 
     // Dodawanie elementów do struktury
     add(&head, 10, 10);
-    add(&head, 10, 11);
-    add(&head, 10, 12);
 
     enableRawMode();
     while (1)

@@ -9,4 +9,6 @@ typedef struct snake_node
     struct snake_node *next;
 } snake_node;
 
+void add(struct snake_node **head, int x, int y);
+
 #endif

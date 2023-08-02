@@ -58,19 +58,20 @@ void movement(snake_node **head, int increment, direction dir, Apple *apple, cha
     {
         // Spawn a new apple.
         spawnApple(apple, board);
+        add(head, apple->X, apple->Y);
     }
     else
     {
         current->next = new_node;
+
+        // usuniecie pierwszego node
+        snake_node *temp = *head;
+        *head = (*head)->next;
+        free(temp);
     }
 
     // dodanie nowego node na koniec
     current->next = new_node;
-
-    // usuniecie pierwszego node
-    snake_node *temp = *head;
-    *head = (*head)->next;
-    free(temp);
 }
 
 void readKey(snake_node **head, Apple *apple, char board[20][40])
