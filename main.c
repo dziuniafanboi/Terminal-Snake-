@@ -13,7 +13,7 @@
 
 void print_node(snake_node *node, char board[20][40])
 {
-    printf("(%d, %d)\n", node->Y, node->X);
+    //printf("(%d, %d)\n", node->Y, node->X);
     if (node->body_part != '\0')
     {
         board[node->Y][node->X] = node->body_part;
