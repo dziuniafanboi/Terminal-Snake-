@@ -4,6 +4,8 @@
 #include <unistd.h>
 #include "libs/snake.h"
 #include "libs/utils.h"
+#include "libs/apple.h"
+#include "libs/map.h"
 
 typedef enum
 {
@@ -11,7 +13,7 @@ typedef enum
     HORIZONTAL
 } direction;
 
-void movement(snake_node **head, int increment, direction dir)
+void movement(snake_node **head, int increment, direction dir, Apple *apple, char board[20][40])
 {
     // ostatni element
     snake_node *current = *head;
@@ -20,21 +22,26 @@ void movement(snake_node **head, int increment, direction dir)
         current = current->next;
     }
 
+
     // organiczenie ruchu tak żeby glizda nie uciekła poza plansze
     if (dir == VERTICAL && (current->Y + increment < 0 || current->Y + increment >= 20))
     {
-        return;
+        printf("Game Over\n");
+        disableRawMode();
+        exit(0);
     }
-    if (dir == HORIZONTAL && (current->X + increment < 0 || current->X  + increment >= 20))
+    if (dir == HORIZONTAL && (current->X + increment < 0 || current->X  + increment >= 40))
     {
-        return;
+        printf("Game Over\n");
+        disableRawMode();
+        exit(0);
     }
 
     // nowy node
     snake_node *new_node = (snake_node *)malloc(sizeof(snake_node));
     new_node->X = current->X;
     new_node->Y = current->Y;
-    current->body_part = 'X';
+    current->body_part = '$';
     new_node->body_part = 'O';
     new_node->next = NULL;
 
@@ -47,6 +54,20 @@ void movement(snake_node **head, int increment, direction dir)
         new_node->X += increment;
     }
 
+     // check if the new position is the same as the apple's position
+    if (new_node->X == apple->X && new_node->Y == apple->Y)
+    {
+        // the snake has eaten the apple, so spawn a new one
+        spawnApple(apple, board);
+    }
+    else
+    {
+        // if the apple was not eaten, remove the first node (the tail of the snake)
+        snake_node *temp = *head;
+        *head = (*head)->next;
+        free(temp);
+    }
+
     // dodanie nowego node na koniec
     current->next = new_node;
 
@@ -56,7 +77,7 @@ void movement(snake_node **head, int increment, direction dir)
     free(temp);
 }
 
-void readKey(snake_node **head)
+void readKey(snake_node **head, Apple *apple, char board[20][40])
 {
     char c;
     char seq[3];
@@ -78,19 +99,19 @@ void readKey(snake_node **head)
         {
             // up arrow
         case 'A':
-            movement(head, -1, VERTICAL);
+            movement(head, -1, VERTICAL, apple, board);
             break;
         // down arrow
         case 'B':
-            movement(head, 1, VERTICAL);
+            movement(head, 1, VERTICAL, apple, board);
             break;
         // right arrow
         case 'C':
-            movement(head, 1, HORIZONTAL);
+            movement(head, 1, HORIZONTAL, apple, board);
             break;
         // left arrow
         case 'D':
-            movement(head, -1, HORIZONTAL);
+            movement(head, -1, HORIZONTAL, apple, board);
             break;
         default:
             break;

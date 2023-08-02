@@ -1,7 +1,8 @@
 {
     "files.associations": {
         "snake.h": "c",
-        "stdbool.h": "c"
+        "stdbool.h": "c",
+        "termios.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

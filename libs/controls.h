@@ -1,10 +1,7 @@
 #ifndef _CONTROLS_H_
 #define _CONTROLS_H_
 
-void readKey(snake_node **head);
+void readKey(snake_node **head, Apple *apple, char board[20][40]);
 
-void vertical_movement(snake_node **head, int increment);
-
-void horizontal_movement(snake_node **head, int increment);
 
 #endif

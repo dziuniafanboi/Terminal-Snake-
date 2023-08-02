@@ -8,6 +8,7 @@
 #include "libs/map.h"
 #include "libs/utils.h"
 #include "libs/controls.h"
+#include "libs/apple.h"
 
 void add(struct snake_node **head, int x, int y)
 {
@@ -30,7 +31,7 @@ void add(struct snake_node **head, int x, int y)
     current->next = newNode;
 }
 
-void print_node(snake_node *node, char board[20][20])
+void print_node(snake_node *node, char board[20][40])
 {
     printf("(%d, %d)\n", node->Y, node->X);
     if (node->body_part != '\0')
@@ -38,10 +39,10 @@ void print_node(snake_node *node, char board[20][20])
         board[node->Y][node->X] = node->body_part;
         return;
     }
-    board[node->Y][node->X] = 'X';
+    board[node->Y][node->X] = '$';
 }
 
-void print_board(snake_node *head, char board[20][20])
+void print_board(snake_node *head, char board[20][40])
 {
     initialze_map(board);
 
@@ -53,7 +54,7 @@ void print_board(snake_node *head, char board[20][20])
     }
 
     printf("-");
-    for (int i = 0; i < 20; i++)
+    for (int i = 0; i < 40; i++)
     {
         printf("-");
     }
@@ -62,7 +63,7 @@ void print_board(snake_node *head, char board[20][20])
     for (int i = 0; i < 20; i++)
     {
         printf("|");
-        for (int j = 0; j < 20; j++)
+        for (int j = 0; j < 40; j++)
         {
             printf("%c", board[i][j]);
         }
@@ -70,7 +71,7 @@ void print_board(snake_node *head, char board[20][20])
     }
 
     printf("-");
-    for (int i = 0; i < 20; i++)
+    for (int i = 0; i < 40; i++)
     {
         printf("-");
     }
@@ -81,11 +82,13 @@ int main(void)
 {
     snake_node *head = NULL;
 
-    char board[20][20];
+    char board[20][40];
+    Apple apple;
 
     initialze_map(board);
+    //spawnApple(&apple, board);
 
-    // Dodawanie 5 elementów do struktury
+    // Dodawanie elementów do struktury
     add(&head, 10, 10);
     add(&head, 10, 11);
     add(&head, 10, 12);
@@ -93,7 +96,7 @@ int main(void)
     enableRawMode();
     while (1)
     {
-        readKey(&head);
+        readKey(&head, &apple, board);
         print_board(head, board);
     }
     disableRawMode();
