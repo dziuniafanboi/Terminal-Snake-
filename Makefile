@@ -5,7 +5,7 @@ CFLAGS = -Wall -Wextra -std=c17
 TARGET = terminal-snake
 
 # Source files
-SRCS = main.c test.c map.c utils.c controls.c
+SRCS = main.c test.c map.c utils.c controls.c apple.c
 
 # Object files directory
 OBJ_DIR = compiled_files

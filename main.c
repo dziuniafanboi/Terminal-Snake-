@@ -83,10 +83,9 @@ int main(void)
     snake_node *head = NULL;
 
     char board[20][40];
-    Apple apple;
 
     initialze_map(board);
-    //spawnApple(&apple, board);
+    spawnApple(board);
 
     // Dodawanie elementów do struktury
     add(&head, 10, 10);
@@ -96,7 +95,7 @@ int main(void)
     enableRawMode();
     while (1)
     {
-        readKey(&head, &apple, board);
+        readKey(&head, board);
         print_board(head, board);
     }
     disableRawMode();

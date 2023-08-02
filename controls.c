@@ -13,7 +13,7 @@ typedef enum
     HORIZONTAL
 } direction;
 
-void movement(snake_node **head, int increment, direction dir, Apple *apple, char board[20][40])
+void movement(snake_node **head, int increment, direction dir, char board[20][40])
 {
     // ostatni element
     snake_node *current = *head;
@@ -55,10 +55,10 @@ void movement(snake_node **head, int increment, direction dir, Apple *apple, cha
     }
 
      // check if the new position is the same as the apple's position
-    if (new_node->X == apple->X && new_node->Y == apple->Y)
+    if (board[new_node->Y][new_node->X] == '#')
     {
         // the snake has eaten the apple, so spawn a new one
-        spawnApple(apple, board);
+        spawnApple(board);
     }
     else
     {
@@ -77,7 +77,7 @@ void movement(snake_node **head, int increment, direction dir, Apple *apple, cha
     free(temp);
 }
 
-void readKey(snake_node **head, Apple *apple, char board[20][40])
+void readKey(snake_node **head, char board[20][40])
 {
     char c;
     char seq[3];
@@ -99,19 +99,19 @@ void readKey(snake_node **head, Apple *apple, char board[20][40])
         {
             // up arrow
         case 'A':
-            movement(head, -1, VERTICAL, apple, board);
+            movement(head, -1, VERTICAL, board);
             break;
         // down arrow
         case 'B':
-            movement(head, 1, VERTICAL, apple, board);
+            movement(head, 1, VERTICAL, board);
             break;
         // right arrow
         case 'C':
-            movement(head, 1, HORIZONTAL, apple, board);
+            movement(head, 1, HORIZONTAL, board);
             break;
         // left arrow
         case 'D':
-            movement(head, -1, HORIZONTAL, apple, board);
+            movement(head, -1, HORIZONTAL, board);
             break;
         default:
             break;
