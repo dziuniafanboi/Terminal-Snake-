@@ -24,7 +24,7 @@ void print_node(snake_node *node, char board[20][40])
 
 void print_board(snake_node *head, Apple *apple, char board[20][40])
 {
-        
+    system("clear");
     initialze_map(board);
 
      board[apple->Y][apple->X] = '#';
@@ -60,6 +60,8 @@ void print_board(snake_node *head, Apple *apple, char board[20][40])
     }
     printf("-\n");
 
+    printf("Press arrows to move\n");
+    printf("Press q to leave\n"); 
 
 }
 
